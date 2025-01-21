@@ -1,6 +1,14 @@
 import time
 import datetime
 
+class TimeDecorator:
+    def __init__(self, func):
+        self.func = func
+
+    def __call__(self, *args, **kwargs):
+        print("Calling the wrapper function")
+        output = self.func(*args, **kwargs)
+        return output
 
 def time_duration(func):
     def inner(*args):

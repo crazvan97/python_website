@@ -9,7 +9,7 @@ class Singleton(type):
 class MyClass(metaclass=Singleton):
     def __init__(self, marc):
         self.marc = marc
-        print("init")
+        print("init MyClass")
 
 c1 = MyClass("toy")
 c2 = MyClass("vw")

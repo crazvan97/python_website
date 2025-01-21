@@ -1,5 +1,6 @@
 """
 A metaclass is a class that defines the behavior of other classes.
+While a class defines how objects are created, a metaclass defines how classes are created
 It controls how classes are created and can be used to modify the class structure, add attributes, or enforce rules.
 The default metaclass is type, but you can define your own to customize class creation.
 """
@@ -29,8 +30,11 @@ class Ion2:
 print(issubclass(Ion, Person))
 print(issubclass(Ion2, Person))
 
-print(isinstance(Ion, Person))
-print(isinstance(Ion2, Person))
+print(issubclass(Person, Ion))
+print(issubclass(Person, Ion2))
+
+# print(isinstance(Ion, Person))
+# print(isinstance(Ion2, Person))
 print(Ion.__mro__)
 
 from abc import ABCMeta, abstractmethod

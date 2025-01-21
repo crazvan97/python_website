@@ -1,8 +1,15 @@
+"""
+A descriptor in Python is an object that defines how attributes are accessed and manipulated,
+typically through __get__, __set__, and __delete__ methods
+"""
 import math
 
 
 class PositiveNumber:
     def __set_name__(self, owner, name):
+        """
+        This is called when the descriptor (PositiveNumber object) is created. So it is called before __init__.
+        """
         print(f"self = {self} __set_name__ with owner = {owner} and name = {name}")
         self._name = name
 
@@ -26,8 +33,8 @@ class Circle:
         return math.pi * self.radius**2
 
 
-# circle = Circle(3)
-# print(circle)
+circle = Circle(3)
+print(circle)
 # circle.radius = -1
 # print(circle.radius)
 # print(Circle.radius._name)
@@ -63,6 +70,6 @@ class Person:
     def birthday(self):
         self.age += 1
 
-Vasile = Person("Vasile", 10)
+# Vasile = Person("Vasile", 10)
 # Vasile.birthday()
 # print(Vasile.age)

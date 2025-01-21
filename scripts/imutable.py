@@ -1,3 +1,8 @@
+"""
+Mutable types: list, dict, set, bytearray. -> their values can be updated or modified
+Immutable types: int, float, str, tuple, frozenset, bytes. -> the data cannot be changed after it's created
+"""
+
 # int
 a = 1
 # float
@@ -11,9 +16,7 @@ d = d[0:2] + "co" + d[2:]
 # tuple
 e = (1, 2, 3)
 
-ee = (1, 3, 2)
 print(e.__hash__())
-print(ee.__hash__())
 
 lista = [1, 2, 3]
 f = (lista, "ceva")
@@ -24,7 +27,8 @@ g = b'12345'
 # print(type(g))
 # print(ord(b'a'))
 
-sett = {1, 2, 3}
+sett = {1, 2, 3, "aa"}
+print(sett)
 
 dictio = {
     "cevapi": 3,
