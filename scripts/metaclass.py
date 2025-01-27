@@ -1,58 +1,47 @@
-"""
-A metaclass is a class that defines the behavior of other classes.
-While a class defines how objects are created, a metaclass defines how classes are created
-It controls how classes are created and can be used to modify the class structure, add attributes, or enforce rules.
-The default metaclass is type, but you can define your own to customize class creation.
-"""
+class SingletonMeta(type):
+    _instances = {}
 
-class Creatura(type):
-    def __instancecheck__(cls, instance):
-        print(instance)
-        print(type(instance))
-        return cls.__subclasscheck__(type(instance))
+    def __new__(cls, name, bases, dct):
+        print(f"Creating class: {name}")
+        # Call the original metaclass's __new__ to create the class
+        new_class = super().__new__(cls, name, bases, dct)
+        return new_class
 
-    def __subclasscheck__(cls, subclass):
-        return hasattr(subclass, "age") and callable(subclass.age)
+    def __call__(cls, *args, **kwargs):
+        print(f"Attempting to instantiate: {cls.__name__}")
+        if cls not in cls._instances:
+            print(f"Creating new instance of {cls.__name__}")
+            # If instance does not exist, create it using the class's __new__ method
+            cls._instances[cls] = super().__call__(*args, **kwargs)
+        else:
+            print(f"Returning existing instance of {cls.__name__}")
+        return cls._instances[cls]
 
-class Person(metaclass=Creatura):
-    pass
 
-class Ion:
-    def age(self):
-        print("age")
+class MyLogger(metaclass=SingletonMeta):
+    def __new__(cls, *args, **kwargs):
+        print(f"Executing __new__ for {cls.__name__}")
+        # Custom behavior for __new__ can be added here
+        instance = super().__new__(cls)
+        return instance
 
-class Ion2:
-    def agew(self):
-        print("age")
+    def __init__(self, value):
+        print(f"Executing __init__ for {self.__class__.__name__}")
+        self.value = value
 
-# print(type(Ion))
-# print(type(Person))
-print(issubclass(Ion, Person))
-print(issubclass(Ion2, Person))
+    def __call__(self):
+        print(f"Executing __call__ for {self.__class__.__name__}")
+        return self.value
 
-print(issubclass(Person, Ion))
-print(issubclass(Person, Ion2))
 
-# print(isinstance(Ion, Person))
-# print(isinstance(Ion2, Person))
-print(Ion.__mro__)
+# Create instances of MyLogger
+print("First instance creation:")
+logger1 = MyLogger(42)  # This will invoke __new__, __init__, and __call__
 
-from abc import ABCMeta, abstractmethod
+print("\nSecond instance creation:")
+logger2 = MyLogger(100)  # This will invoke __call__ and return the same instance
 
-class Pisoi(metaclass=ABCMeta):
-    @classmethod
-    def __subclasshook__(cls, __subclass):
-        return hasattr(__subclass, "mew") and callable(__subclass.mew)
+print("\nAre both instances the same?", logger1 is logger2)  # Should be True
 
-    @abstractmethod
-    def mew(self):
-       raise NotImplementedError
-
-class Rebel(Pisoi):
-    def __init__(self):
-        self.name = "Vagabont"
-
-    def mew(self):
-        raise NotImplementedError
-
-reb = Rebel()
+print("\nCalling the logger instance:")
+print(logger1())  # Calls __call__ and returns the value

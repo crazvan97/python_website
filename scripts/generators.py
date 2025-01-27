@@ -21,6 +21,18 @@ class MyIterator:
         self.current += 1
         return self.current - 1
 
+# ----------------------------------------------------------------------------------------------
+def read_large_file(path_file):
+    with open(path_file, 'r') as file:
+        for single_line in file:
+            yield single_line.strip()  # yield each line without leading/trailing whitespaces
+
+# Example usage:
+file_path = 'large_file.txt'
+for line in read_large_file(file_path):
+    print(line)  # Process the line (or do something else)
+
+# ----------------------------------------------------------------------------------------------
 
 def my_generator(start, pas):
     # for i in sequence:
@@ -28,7 +40,6 @@ def my_generator(start, pas):
     while True:
         start = start + pas
         yield start
-
 
 # seq = my_generator([1, 2, 3])
 seq = my_generator(0,1)

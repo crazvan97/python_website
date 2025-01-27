@@ -18,6 +18,7 @@ def do_something(ceva):
     time.sleep(1)
     print(f"Do something {ceva}")
 
+# print_ok = TimeDecorator(print_ok); print_ok() -> invoke __call__ from TimeDecorator
 @TimeDecorator
 def print_ok(param):
     return param

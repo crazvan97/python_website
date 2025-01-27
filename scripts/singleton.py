@@ -1,28 +1,40 @@
-class Singleton(type):
-    _instances = {}
+class SingletonMeta(type):
+    _instancess = {}
     def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super().__call__(*args, **kwargs)
-        return cls._instances[cls]
+        print(f"call {args}")
+        if cls not in cls._instancess:
+            cls._instancess[cls] = super().__call__(*args, **kwargs)
+        return cls._instancess[cls]
 
 
-class MyClass(metaclass=Singleton):
-    def __init__(self, marc):
-        self.marc = marc
-        print("init MyClass")
+class MyLogger(metaclass=SingletonMeta):
+    def __new__(cls, *args, **kwargs):
+        print("Debug: __new__ is called")
+        return super(MyLogger, cls).__new__(cls)
+    def __init__(self, param):
+        print("init")
+        self.param = param
 
-c1 = MyClass("toy")
-c2 = MyClass("vw")
 
-class MyNewClass(metaclass=Singleton):
-    def __init__(self, marc):
-        self.marc = marc
-        print("new init")
+#-------------------------------------------------------------------------
+def singleton(cls):
+    instances = {}
+    def get_instace(*args, **kwargs):
+        if cls not in instances:
+            print(cls)
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
 
-c3 = MyNewClass("dacia")
-c4 = MyNewClass("bmw")
+    return get_instace
 
-print(c1.marc)
-print(c2.marc)
-print(c3.marc)
-print(c4.marc)
+
+#FunctionDec = singleton(FunctionDec) -> get_instance
+@singleton
+class FunctionDec:
+    def __init__(self, param):
+        print("init")
+        self.param = param
+
+    def write_to_file(self):
+        print(self.param)
+

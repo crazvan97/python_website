@@ -1,36 +1,22 @@
-from abc import ABC, abstractmethod
+def singleton(cls):
+    instances = {}
+    def get_instace(*args, **kwargs):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
 
-class Animal(ABC):
-    @abstractmethod
-    def sound(self):
-        pass
-
-    @abstractmethod
-    def move(self):
-        pass
+    return get_instace
 
 
-class Dog(Animal):
-    def sound(self):
-        print("Woof!")
+#FunctionDec = singleton(FunctionDec) -> get_instance
+@singleton
+class FunctionDec:
+    def __init__(self, param):
+        print("init")
+        self.param = param
 
-    def move(self):
-        print("The dog runs.")
+    def write_to_file(self):
+        print(self.param)
 
-
-class Bird(Animal):
-    def sound(self):
-        print("Chirp!")
-
-    def move(self):
-        print("The bird flies.")
-
-
-# Create instances of concrete classes
-dog = Dog()
-dog.sound()  # Output: Woof!
-dog.move()   # Output: The dog runs.
-
-bird = Bird()
-bird.sound()  # Output: Chirp!
-bird.move()   # Output: The bird flies.
+func = FunctionDec(1) # get_instance(1) -> cls -> FunctionDec
+func2 = FunctionDec(2)

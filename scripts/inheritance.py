@@ -3,12 +3,11 @@ class Vehicle:
         self.make = make
         self.model = model
         self.year = year
+        self._fullname = self.make + self.model
         self.__started = False
 
     def __macaroane(self):
         print(f"Macaroane {self.make}")
-
-    
 
 
 class Car(Vehicle):
@@ -31,16 +30,20 @@ class Car(Vehicle):
             print("Engine already stopped")
 
     def driving(self):
+        print(self._fullname)
         print(f"Driving this excelent {self.make} {self.model} Car from {self.year}")
 
-tesla = Car("Tesla", "Model 3", "20222", "4")
+tesla = Car("Tesla", "Model 3", "2022", "4")
 bicicleta = Vehicle("Pegas", "312", "2003")
+print(tesla._Vehicle__macaroane())
+
+# print(dir())
 tesla.driving()
-tesla.start_engine()
-tesla.stop_engine()
-tesla.stop_engine()
-tesla.start_engine()
-tesla.start_engine()
+# tesla.start_engine()
+# tesla.stop_engine()
+# tesla.stop_engine()
+# tesla.start_engine()
+# tesla.start_engine()
 
 # bicicleta.
 # tesla.macaroane()
