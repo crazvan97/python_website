@@ -4,7 +4,7 @@ import shutil
 import hashlib
 import argparse
 import threading
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, date
 
 
 class ParseArguments:
@@ -21,7 +21,7 @@ class ParseArguments:
     @staticmethod
     def check_hour_format(value):
         try:
-            return datetime.strptime(value, "%H:%M")
+            return datetime.combine(date.today(), datetime.strptime(value, "%H:%M").time())
         except ValueError:
             raise argparse.ArgumentTypeError(f"The time must be in 24-hour format 'HH:MM' (e.g. 19:45)")
 
@@ -123,12 +123,12 @@ class FolderSync:
             time.sleep(1)
 
     def _scheduled_sync(self):
-        current_time = datetime.strptime(datetime.now().strftime('%H:%M'), "%H:%M")
-        if current_time > self.schedule:
-            print(f"The time {self.schedule} has already passed today. It will be scheduled for tomorrow.")
-            self.schedule = (datetime.strptime(self.schedule.strftime('%H:%M'), '%H:%M') + timedelta(days=1)).strftime('%H:%M')
+        if datetime.now() > self.schedule:
+            print(f"The time {self.schedule.strftime('%H:%M')} has already passed today. It will be scheduled for tomorrow.")
+            self.schedule = self.schedule + timedelta(days=1)
+
         while True:
-            if current_time >= self.schedule:
+            if datetime.now() >= self.schedule:
                 # lock before starting sync
                 with self.sync_lock:
                     print(f"[{datetime.now()}] Scheduled synchronization starting.")
@@ -139,10 +139,10 @@ class FolderSync:
             time.sleep(60)
 
     def start_auto_sync(self):
-        target = self._interval_sync if self.interval else self._scheduled_sync
-        sync_thread = threading.Thread(target=target)
+        sync_thread = threading.Thread(target=self._interval_sync if self.interval else self._scheduled_sync)
         sync_thread.daemon = True  # Allow the thread to exit when the main program exits
         sync_thread.start()
+        return sync_thread
 
     def manual_sync(self):
         with self.sync_lock:
@@ -150,19 +150,38 @@ class FolderSync:
             # self._folder_sync()
             # print(f"[{datetime.now()}] Periodic synchronization completed.")
 
+
+def timed_input(timeout):
+    user_input = []
+
+    def get_input():
+        user_input.append(input())
+
+    input_thread = threading.Thread(target=get_input)
+    input_thread.daemon = True
+    input_thread.start()
+
+    input_thread.join(timeout)
+
+    if input_thread.is_alive():
+        return ""
+    else:
+        return user_input[0]
+
 def main():
     parser = ParseArguments()
     interval, schedule = parser.get_interval_schedule()
-    print(interval, schedule)
 
     folder_sync = FolderSync(parser.arguments.folder1, parser.arguments.folder2, interval=interval, schedule=schedule)
-    folder_sync.start_auto_sync()
+    auto_sync = folder_sync.start_auto_sync()
 
     try:
-        while True:
-            text = input("Type 'sync' to trigger now a manual synchronization\n")
+        print("Type 'sync' to trigger now a manual synchronization")
+        while auto_sync.is_alive():
+            text = timed_input(5)
             if "sync" == text.strip():
                 folder_sync.manual_sync()
+        print("Scheduled sync was done, exiting from main thread.")
     except KeyboardInterrupt:
         print("Program interrupted.")
         exit(0)
