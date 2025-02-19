@@ -34,6 +34,7 @@ class Circle:
 
 
 circle = Circle(3)
+print(circle.calculate_area())
 print(circle)
 # circle.radius = -1
 # print(circle.radius)

@@ -16,16 +16,16 @@ class Car(Vehicle):
         self.wheels = wheels
         
     def start_engine(self):
-        if not self.__started:
+        if not self._Vehicle__started:
             print("Start the engine...")
-            self.__started = True
+            self._Vehicle__started = True
         else:
             print("Engine already started")
 
     def stop_engine(self):
-        if self.__started:
+        if self._Vehicle__started:
             print("Stop the engine")
-            self.__started = False
+            self._Vehicle__started = False
         else:
             print("Engine already stopped")
 
@@ -37,13 +37,9 @@ tesla = Car("Tesla", "Model 3", "2022", "4")
 bicicleta = Vehicle("Pegas", "312", "2003")
 print(tesla._Vehicle__macaroane())
 
-# print(dir())
-tesla.driving()
-# tesla.start_engine()
-# tesla.stop_engine()
-# tesla.stop_engine()
-# tesla.start_engine()
-# tesla.start_engine()
+print(dir(Car))
+print(Car.__dict__)
+
 
 # bicicleta.
 # tesla.macaroane()

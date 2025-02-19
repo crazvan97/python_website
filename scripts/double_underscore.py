@@ -15,6 +15,7 @@ class B(A):
 
 a = A()
 b = B()
+b._A__method()
 
 print(vars(a))
 print(vars(b))
