@@ -44,4 +44,4 @@ logger2 = MyLogger(100)  # This will invoke __call__ and return the same instanc
 print("\nAre both instances the same?", logger1 is logger2)  # Should be True
 
 print("\nCalling the logger instance:")
-print(logger1())  # Calls __call__ and returns the value
+print(logger2())  # Calls __call__ and returns the value

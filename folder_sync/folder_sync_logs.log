@@ -1,0 +1,23 @@
+[25-03-11 15:10:38][I] - Start sync folder [C:\Users\razva\Desktop\folder2] from [C:\Users\razva\Desktop\New folder]. - start_auto_sync
+[25-03-11 15:10:38][I] Waiting 1161 seconds before starting scheduled sync - _scheduled_sync
+[25-03-11 15:10:42][I] Sync started - manual_sync
+[25-03-11 15:10:42][W] Creating folder [golf] in [C:\Users\razva\Desktop\folder2] - process_file
+[25-03-11 15:10:42][W] Sync file [imag1.jpeg] from [C:\Users\razva\Desktop\folder2\golf]. - process_file
+[25-03-11 15:10:42][W] Creating folder [golf\golf] in [C:\Users\razva\Desktop\folder2] - process_file
+[25-03-11 15:10:42][W] Sync file [imag1.jpeg] from [C:\Users\razva\Desktop\folder2\golf\golf]. - process_file
+[25-03-11 15:10:42][W] Remove file [fisier1.txt] from [C:\Users\razva\Desktop\folder2]. - remove_files
+[25-03-11 15:10:42][W] Removing folder [C:\Users\razva\Desktop\folder2\cevaceva] in [C:\Users\razva\Desktop\folder2] - remove_files
+[25-03-11 15:10:42][W] Sync file [imag2.jpeg] from [C:\Users\razva\Desktop\folder2\golf\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag2.jpeg] from [C:\Users\razva\Desktop\folder2\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag3.jpeg] from [C:\Users\razva\Desktop\folder2\golf\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag4.jpeg] from [C:\Users\razva\Desktop\folder2\golf\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag3.jpeg] from [C:\Users\razva\Desktop\folder2\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag5.jpeg] from [C:\Users\razva\Desktop\folder2\golf\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag4.jpeg] from [C:\Users\razva\Desktop\folder2\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag6.jpeg] from [C:\Users\razva\Desktop\folder2\golf\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag5.jpeg] from [C:\Users\razva\Desktop\folder2\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag7.jpeg] from [C:\Users\razva\Desktop\folder2\golf\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag6.jpeg] from [C:\Users\razva\Desktop\folder2\golf]. - process_file
+[25-03-11 15:10:42][W] Sync file [imag7.jpeg] from [C:\Users\razva\Desktop\folder2\golf]. - process_file
+[25-03-11 15:10:42][I] Sync completed - manual_sync
+[25-03-11 15:23:32][I] 'quit' was received, stop the script - main
